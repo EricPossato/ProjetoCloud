@@ -10,8 +10,10 @@ Provisionar uma arquitetura na AWS a partir do Terraform que possua:
 ## Diagrama
 ![Diagrama](DiagramaCloud.png)
 ## Procedimento para execução do Terraform
+
 - Instalar o Terraform
-- Configurar a AWS CLI com as credenciais de access_key_id e secret_access_key da sua conta AWS
+- Configurar a AWS CLI com as credenciais de access_key_id e secret_access_key da sua conta AWS de acordo com a [documentação oficial](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+- Nnecessário ter um bucket S3 com o nome "eric-terraform-state-e" para guardar o backend do Terraform.
 - Alterar terraform.tfvars em *./terraform* com as informações correspondentes ao banco de dados RDS que será criado:
 ```python
 db_username = "<usuário>"
