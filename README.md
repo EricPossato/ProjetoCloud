@@ -14,7 +14,7 @@ Provisionar uma arquitetura na AWS a partir do Terraform que possua:
 - Instalar o Terraform
 - Configurar a AWS CLI com as credenciais de access_key_id e secret_access_key da sua conta AWS de acordo com a [documentação oficial](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 - Necessário ter um bucket S3 com o nome "eric-terraform-state-e" para guardar o backend do Terraform.
-- Alterar terraform.tfvars em *./terraform* com as informações correspondentes ao banco de dados RDS que será criado:
+- Alterar terraform.tfvars com as informações correspondentes ao banco de dados RDS que será criado:
 ```python
 db_username = "<usuário>"
 db_password = "<senha>"
@@ -38,6 +38,20 @@ A aplicação estará disponível no DNS do load balancer e pode ser acessada po
 ```
 
 ## Decisões do projeto
+- Elastic Compute Cloud (EC2)
+usado para hospedar uma aplicação web em uma instância t2.micro de baixo custo. O EC2 é escalável e flexível.
+- Relational Database Service (RDS for MySQL)
+usado para armazenar os dados da aplicação em uma instância db.t2.micro.
+- Application Load Balancer (ALB)
+usado para distribuir o tráfego entre duas instâncias distintas do EC2 com a mesma aplicação.
+- Virtual Private Cloud (VPC)
+usado para criar uma rede virtual privada na nuvem, separada da rede pública.
+- CloudWatch
+usado para monitoramento de utilização
+- Security Groups
+usado para proteger a comunicação entre os serviços e controlar o tráfego
+- Auto Scaling Group (ASG)
+usado para criar 2 instâncias EC2 e garantir disponibilidade
 
 ## Escolha de região
 
