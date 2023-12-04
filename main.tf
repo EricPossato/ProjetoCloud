@@ -2,22 +2,42 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.16"
+      version = ">= 5.0.0"
     }
   }
-
   required_version = ">= 1.2.0"
+  backend "s3" {
+    bucket         = "eric-terraform-state-e"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    //dynamodb_table = "eric-terraform-state-lock"
+  }
 }
 
 provider "aws" {
-  region  = "us-east-1"
+  region = var.region
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-0230bd60aa48260c6"
-  instance_type = "t2.micro"
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "eric-vpc"
+  cidr = "172.31.0.0/16"
+  azs = var.azs
+
+  # Define CIDR blocks for your private subnets
+  private_subnets = ["172.31.0.0/26", "172.31.0.64/26"]
+
+  # Define CIDR blocks for your public subnets
+  public_subnets = ["172.31.0.128/26", "172.31.0.192/26"]
+
+  enable_nat_gateway = true
+  enable_vpn_gateway = true
 
   tags = {
-    Name = "ExampleAppServerInstance"
+    Terraform = "true"
+    Environment = "Development"
+    Project = "eric"
   }
 }
