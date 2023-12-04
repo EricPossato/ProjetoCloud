@@ -7,6 +7,8 @@ Provisionar uma arquitetura na AWS a partir do Terraform que possua:
 - 2 instâncias EC2 (com Auto Scaling)
 - Banco de dados RDS
 
+## Diagrama
+![Diagrama](DiagramaCloud.png)
 ## Procedimento para execução do Terraform
 - Instalar o Terraform
 - Configurar a AWS CLI com as credenciais de access_key_id e secret_access_key da sua conta AWS
@@ -26,6 +28,11 @@ terraform apply "tfplan"
 E para destruir a infraestrutura:
 ```bash
 terraform destroy
+```
+
+A aplicação estará disponível no DNS do load balancer e pode ser acessada por
+```
+{DNS Load Balancer}/docs
 ```
 
 ## Decisões do projeto
