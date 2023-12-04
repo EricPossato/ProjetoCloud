@@ -121,5 +121,5 @@ variable "db_username" {
 variable "db_password" {
   description = "Master password for the DB instance"
   type        = string
-  default     = "senha"
+  default     = "senhaexemplo"
 }
